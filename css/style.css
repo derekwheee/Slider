@@ -81,118 +81,79 @@ td { vertical-align: top; }
 .right { float: right; }
 
 
-/* ===== Page Layour Styles ===== */
-
-body {
-    background: #e6d1a7 url('../img/background-main.jpg') no-repeat top center;
-}
+/* ===== Page Layout Styles ===== */
 
 .container {
     width: 960px;
-    margin: 0 auto;
+    margin: 50px auto;
     background: #fff;
 }
 
 
-/* ===== Navigation Styles ===== */
-
-nav {
-    height: 95px;
-    background: #fff url('../img/background-nav.jpg') no-repeat top left;
-    position: relative;
-    padding: 15px 30px 0;
-}
-
-nav .last {
-    padding-right: 0 !important;
-    border: none !important;
-}
-
-nav > .secondaryNav li, nav > .mainNav li {
-    float: left;
-}
-
-nav > .secondaryNav a {
-    display: block;
-    padding: 0 5px;
-    border: 1px solid #dbc08b;
-    border-width: 0 1px 0 0;
-    font: 10px 'Gill Sans', 'Gill Sans MT', sans-serif;
-    color: #00447b;
-    text-transform: uppercase;
-    text-decoration: none;
-    float: left;
-}
-
-nav > .secondaryNav a:hover {
-    color: #2482cf;
-}
-
-nav > .mainNav ul a {
-    display: block;
-    padding: 0 15px;
-    margin: 30px 0 0;
-    border: 1px dotted #dbc08b;
-    border-width: 0 1px 0 0;
-    font: 22px 'Perpetua', serif;
-    color: #563208;
-    text-decoration: none;
-}
-
-nav > .mainNav ul a:hover {
-    color: #9c6d35;
-}
-
-nav > .mainNav .logo {
-    position: absolute;
-    top: 55px;
-    left: -20px;
-    z-index: 9999;
-}
-
-
 /* ===== Homepage Styles ===== */
-.container > div {
-    width: 960px;
-}
 
-.hero {
+.slider {
     position: relative;
     height:400px;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
-.hero .heroFade {
+.slider .slideContainer {
+    position: relative;
+}
+
+.slider > .bulletContainer {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    z-index: 200;
+}
+
+.slider > .bulletContainer > .bullet {
+    padding: 5px 1px;
+    font: 34px verdana, sans-serif;
+    color: #baa77f;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    cursor: pointer;
+}
+
+.slider > .bulletContainer > .bullet:hover, .slider > .bulletContainer > .active {
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+.slider .heroFade {
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
-.hero .heroArea {
+.slider .slide {
     position: relative;
 }
 
-.hero .heroArea > div {
+.slider .slide > div {
     position: absolute;
     width: 100%;
     text-align: center;
     bottom: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 50;
 }
 
-.hero .heroArea > div .heroTag {
-    font: 55px/65px 'Perpetua', serif;
+.slider .slide > div .heroTag {
+    font: 55px/65px serif;
     padding: 0;
     margin: 0;
     color: #fff;
 }
 
-.hero .heroArea > div .heroCopy {
+.slider .slide > div .heroCopy {
     width: 520px;
     margin: 0 auto 25px;
-    font: 22px/25px 'Gill Sans', sans-serif;
-    color: #e1c89d;
+    font: 22px/25px sans-serif;
+    color: #fff;
 }
 
 
