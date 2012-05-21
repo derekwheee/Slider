@@ -14,8 +14,10 @@
     $.fn.avalanche = function( options ) {
 
         var settings = {
-            $element      : this,
-            slideDuration : 1000
+            $element          : this,
+            slideDuration     : 3000,
+            animationDuration : 1000,
+            stopOnClick       : false
         };
 
         options && $.extend(settings, options);
@@ -24,11 +26,12 @@
             sliderWidth  : settings.$element.width(),
             sliderHeight : settings.$element.height(),
             slideCount   : $(settings.$element).find(".slide").length,
-            position     : 0
+            position     : 0,
+            makeSlide    : null
         };
 
         var methods = {
-            moveSlides : function () {
+            positionSlides : function () {
 
                 $(settings.$element).find(".slide").each(function(index) {
                     $(this).css({
@@ -53,28 +56,63 @@
                         'data-offset' : slideOffset,
                         'html'        : '&bull;',
                         click         : function() {
-                            methods.switchSlides(this);
+                            methods.manualSlide(this);
                         }
                     }).appendTo('.bulletContainer');
 
                 }
 
             },
-            switchSlides : function (that) {
+            createInterval : function() {
+                clearInterval(properties.makeSlide);
+                properties.makeSlide = setInterval(function() {
+                    methods.autoSlide();
+                }, settings.slideDuration);
+            },
+            manualSlide : function (that) {
 
                 var offset = $(that).attr('data-offset');
-                            
+
                 $('.active').removeClass('active');
-                $(this).addClass('active');
-                $('.slideContainer').animate({ left: offset }, settings.slideDuration);
+                $(that).addClass('active');
+                $('.slideContainer').animate({ left : offset }, settings.animationDuration);
+
+                if (settings.stopOnClick) {
+                    clearInterval(properties.makeSlide);
+                } else {
+                    methods.createInterval();
+                }
+
+            },
+            autoSlide : function () {
+
+                var currentPosition = parseInt($('.slideContainer').css("left")) || 0,
+                    offset          = properties.sliderWidth,
+                    maxOffset       = properties.sliderWidth * (properties.slideCount - 1) * -1;
+
+                if (currentPosition !== maxOffset) {
+                    $('.slideContainer').animate({ left : currentPosition - offset }, settings.animationDuration);
+                    $('.bulletContainer .active')
+                        .removeClass('active')
+                        .next()
+                        .addClass('active');
+                } else {
+                    $('.slideContainer').animate({ left : 0 }, settings.animationDuration);
+                    $('.bulletContainer > span')
+                        .removeClass('active')
+                        .first()
+                        .addClass('active');
+                }
 
             }
+
         };
 
         return this.each(function() {
 
             if (properties.slideCount > 1) {
-                methods.moveSlides();
+                methods.positionSlides();
+                methods.createInterval();
             }
 
             methods.buildUI();
