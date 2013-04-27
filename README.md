@@ -1,5 +1,5 @@
-Avalanche
-=========
+Slider
+======
 
 Like the world needs another slider
 -----------------------------------
